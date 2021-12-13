@@ -11,10 +11,9 @@
       rel="stylesheet"
     />
     <link
-      href="assets/css/app.css"
-      type="text/css"
       rel="stylesheet"
-      media="screen,projection"
+      type="text/css"
+      href="{{ url_for('static', filename='css/app.css') }}"
     />
     <meta name="robots" content="index,follow" />
     <meta name="audience" content="Alle" />
@@ -186,7 +185,7 @@
               >
             </div>
             <div class="value truncate">
-              <span id="votingweight" class="percentage">{%person.name%}</span>
+              <span id="votingweight" class="percentage">Seth</span>
             </div>
           </div>
 

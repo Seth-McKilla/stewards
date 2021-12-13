@@ -1,11 +1,7 @@
 from flask import Flask, request
 from flask.templating import render_template
-app = Flask(__name__)
+app = Flask(__name__, static_folder="assets")
 
 @app.route("/", methods=["GET", "POST"])
-def hello():
-    person = {"name": "Seth", "age": "30"}
-    return render_template("steward-card.html", person=person)
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+def main():
+    return render_template("index.html")
