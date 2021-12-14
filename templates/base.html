@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Steward Report Cards</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&family=Space+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/app.css') }}"
+    />
+    <meta name="robots" content="index,follow" />
+    <meta name="audience" content="Alle" />
+    <meta name="revisit-after" content="7 days" />
+    <meta
+      name="description"
+      content="The Steward Report Cards provides the most valuable metrics on engagement for each Steward in the Gitcoin DAO. The cards aggregate public data from Discourse, governance participation and workstream involvement and calculate an overall Health-score."
+    />
+    <meta name="keywords" content="" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/images/favicon.png"
+    />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gitcoindao" />
+    <meta name="twitter:title" content="Steward Report Cards" />
+    <meta
+      name="twitter:description"
+      content="The Steward Report Cards provides the most valuable metrics on engagement for each Steward in the Gitcoin DAO. The cards aggregate public data from Discourse, governance participation and workstream involvement and calculate an overall Health-score."
+    />
+    <meta
+      name="twitter:image"
+      content="https://stewards.eth.limo/assets/images/twitter/preview.png"
+    />
+  </head>
+
+  <body>
+    <section class="column center">
+      <article>
+        <h1>Steward Report Cards</h1>
+        <p>
+          The Stewards of Gitcoin DAO play a vital role in driving the Gitcoin
+          ecosystem forward through their work in governance and workstreams. In
+          an effort to boost transparency the MMM-Workstream have created this
+          site with report cards for each Steward that display metrics and links
+          on their involvement and engagement in the DAO. Details and discussion
+          can be found on the
+          <a
+            href="https://gov.gitcoin.co/t/introducing-steward-report-cards/8712"
+            target="_blank"
+            >governance forum</a
+          >, to learn more and get involved - visit
+          <a href="https://gitcoindao.com" target="_blank">GitcoinDAO.com</a>
+        </p>
+      </article>
+    </section>
+
+    <section class="ui">
+      <div class="input-wrapper">
+        <label for="search">Search</label>
+        <input
+          type="text"
+          id="search"
+          placeholder="Name, Address, Workstream ... "
+        />
+      </div>
+
+      <div class="input-wrapper">
+        <label for="orderby">Order by</label>
+        <select id="orderby" name="orderby">
+          <option value="health" selected>Health</option>
+          <option value="posts">Forum posts</option>
+          <option value="weight">Voting Weight</option>
+          <option value="participation">Vote participation</option>
+        </select>
+      </div>
+
+      <div class="input-wrapper">
+        <label for="direction">Display</label>
+        <select id="direction" name="direction">
+          <option value="descending" selected>Descending</option>
+          <option value="ascending">Ascending</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- stewards -->
+    <section id="grid" class="grid"></section>
+
+    <!-- footer-->
+    <footer>
+      <a href="https://m-m-m.xyz/" target="_blank">
+        <img class="mmm" src="assets/images/mmm.svg" />
+      </a>
+    </footer>
+
+    <!-- gitcoindao-->
+    <section id="gitcoindao">
+      <a href="https://gitcoindao.com" target="_blank">
+        <img src="assets/images/gitcoindao.svg" alt="gitcoindao" />
+      </a>
+    </section>
+
+    {% block content %} {% endblock %}
+
+    <script defer src="assets/js/app.js"></script>
+  </body>
+</html>

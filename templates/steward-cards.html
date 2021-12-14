@@ -1,0 +1,104 @@
+{% block content %} {% for steward in stewards %}
+<div id="card" class="card" data-tags="">
+  <!-- head -->
+  <div class="head">
+    <figure>
+      <img id="image" loading="lazy" src="#" alt="" />
+    </figure>
+    <div class="user truncate">
+      <div id="name" class="name truncate">{{ steward["name"] }}</div>
+      <div class="gitcoinhandle truncate">
+        <a id="handle_gitcoin" target="_blank" href="#"
+          >{{ steward["handle_gitcoin"] }}</a
+        >
+      </div>
+    </div>
+    <div class="health">
+      <img id="health" src="../assets/images/health_0.svg" />
+    </div>
+  </div>
+
+  <!-- content-->
+  <div class="content">
+    <!-- steward since -->
+    <div class="row">
+      <div class="icon">
+        <img src="../assets/images/calender.svg" />
+      </div>
+      <div class="property truncate">
+        <a id="steward_since_url" target="_blank" href="#">Steward since</a>
+      </div>
+      <div class="value truncate">
+        <span id="steward_since">{{ steward_since }}</span>
+      </div>
+    </div>
+
+    <!-- forum post -->
+    <div class="row">
+      <div class="icon">
+        <img src="../assets/images/forum.svg" />
+      </div>
+      <div class="property truncate">
+        <a id="forum_uri" href="#" target="_blank">Forum posts</a>
+      </div>
+      <div class="value truncate">
+        <span id="forum_post">{{ posts }}</span>
+      </div>
+    </div>
+
+    <!-- workstream -->
+    <div class="row">
+      <div class="icon">
+        <img src="../assets/images/workstream.svg" />
+      </div>
+      <div class="property truncate">
+        <a href="http://gitcoindao.com" target="_blank">Workstream</a>
+      </div>
+      <div class="value truncate">
+        <a id="workstream_url" href="#" target="_blank"
+          ><span id="workstream_name"></span
+        ></a>
+        <span id="workstream_none"></span>
+      </div>
+    </div>
+
+    <!-- voting weight -->
+    <div class="row">
+      <div class="icon">
+        <img src="../assets/images/weight.svg" />
+      </div>
+      <div class="property truncate">
+        <a id="votingweight_url" target="_blank" href="#">Voting weight</a>
+      </div>
+      <div class="value truncate">
+        <span id="votingweight" class="percentage">Seth</span>
+      </div>
+    </div>
+
+    <!-- vote participation -->
+    <div class="row">
+      <div class="icon">
+        <img src="../assets/images/participation.svg" />
+      </div>
+      <div class="property truncate">
+        <a href="https://snapshot.org/#/gitcoindao.eth" target="_blank"
+          >Vote participation</a
+        >
+      </div>
+      <div class="value truncate">
+        <span id="participation_snapshot" class="percentage">33</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- buttons-->
+  <div class="buttons">
+    <a id="statement_button" class="btn truncate" target="_blank" href="#"
+      >Statement</a
+    >
+    <a id="delegate_button" class="btn truncate teal" target="_blank" href="#"
+      >Delegate</a
+    >
+  </div>
+</div>
+{% endblock %}
