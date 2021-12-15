@@ -11,6 +11,7 @@ def main():
 
     stewards_data = pd.read_csv('stewards.csv')
     voting_power = []
+    json_list = []
 
     for i in stewards_data['address']:
         url = 'https://api.boardroom.info/v1/voters/' + i
@@ -71,11 +72,8 @@ def main():
 
     voting_participation = []
 
-    #df1 = pd.read_csv('stewards.csv')
 
     for i in range(len(result['address'])):
-        #print(df1['Voting Power'][i])
-        #print(result['address'][i])
         url = 'https://api.boardroom.info/v1/voters/' + result['address'][i]
         r = requests.get(url)
 
@@ -88,8 +86,6 @@ def main():
         else:
             url = 'https://api.boardroom.info/v1/voters/' + str(result['address'][i])
             res = requests.get(url)
-            #print(res.json())
-            #print(res.json()['data']['totalVotesCast'])
             userVotesCast = res.json()['data']['protocols'][0]['totalVotesCast']
             voting_participation.append((userVotesCast/totalVotes)*100)
 
@@ -97,7 +93,8 @@ def main():
     df3 = pd.concat([result,df2],axis=1)
 
     df3['json'] = df3.to_json(orient='records', lines=True).splitlines()
-    res = [json.loads(df['json'][i])]
-    json_list.append(res)
+    for i in range(len(stewards_data['address'])):
+        res = json.loads(df3['json'][i])
+        json_list.append(res)
 
     return render_template("index.html", stewards=json_list)
