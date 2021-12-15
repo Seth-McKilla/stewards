@@ -1,16 +1,13 @@
-    #Importing the required libraries
 import json
 import requests
 import pandas as pd
-from flask import Flask, request
+from flask import Flask
 from flask.templating import render_template
 app = Flask(__name__, static_folder="assets")
 
 @app.route("/", methods=["GET", "POST"])
 
-
 def main():
-    # Insert API logic here
 
     stewards_data = pd.read_csv('stewards.csv')
     voting_power = []
