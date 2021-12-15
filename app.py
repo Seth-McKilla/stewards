@@ -100,7 +100,7 @@ def main():
     df3 = pd.concat([result,df2],axis=1)
 
     df3['json'] = df3.to_json(orient='records', lines=True).splitlines()
+    res = [json.loads(df['json'][i])]
+    json_list.append(res)
 
-    stewards = list(df3['json'])
-
-    return render_template("index.html", stewards=stewards)
+    return render_template("index.html", stewards=json_list)
