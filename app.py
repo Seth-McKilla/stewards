@@ -1,4 +1,5 @@
 import json
+import math
 import requests
 import pandas as pd
 from flask import Flask
@@ -87,15 +88,17 @@ def main():
             if res["data"]["account"] == None:
                 voting_power.append("NA")
             else:
-                voting_power.append(
-                    res["data"]["account"]["percentageOfTotalVotingPower"]
+                power = "{:.2f}".format(
+                    float(res["data"]["account"]["percentageOfTotalVotingPower"])
                 )
+                voting_power.append(power)
 
         else:
-            voting_power.append(
+            power = "{:.2f}".format(
                 (float(r.json()["data"]["protocols"][0]["lastCastPower"]) / 100000000)
                 * 100
             )
+            voting_power.append(power)
 
         df_voting_power = pd.DataFrame(voting_power, columns=["votingweight"])
         result = pd.concat([stewards_data, df_voting_power], axis=1)
@@ -120,7 +123,7 @@ def main():
             url = "https://api.boardroom.info/v1/voters/" + str(result["address"][i])
             res = requests.get(url)
             userVotesCast = res.json()["data"]["protocols"][0]["totalVotesCast"]
-            voting_participation.append((userVotesCast / totalVotes) * 100)
+            voting_participation.append(math.ceil((userVotesCast / totalVotes) * 100))
 
     df2 = pd.DataFrame(voting_participation, columns=["voteparticipation"])
     df3 = pd.concat([result, df2], axis=1)
