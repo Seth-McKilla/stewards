@@ -188,6 +188,10 @@ section.grid {
 .card .head .health {
   margin-right: 1em;
 }
+.card .head .health h2 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
 
 /* CONTENT */
 .card .content {
