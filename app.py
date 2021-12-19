@@ -138,6 +138,8 @@ initial_list = preprocess()
 def sort_by_key(list):
     return list['name']
 
+def sort_by_date(list):
+    return list['steward_since']
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -145,11 +147,16 @@ def index():
     if request.method == "POST":
         data = [x for x in request.form.values()]
 
-        #return str(data)
         if data[0] == 'name':
             if data[1] == 'True':
                 return render_template("index.html", stewards=sorted(initial_list, key=sort_by_key, reverse=True))
             else: 
                 return render_template("index.html", stewards=sorted(initial_list, key=sort_by_key, reverse=False))
+
+        if data[0] == 'date':
+            if data[1] == 'True':
+                return render_template("index.html", stewards=sorted(initial_list, key=sort_by_date, reverse=True))
+            else: 
+                return render_template("index.html", stewards=sorted(initial_list, key=sort_by_date, reverse=False))
     else:
         return render_template("index.html", stewards=initial_list)
