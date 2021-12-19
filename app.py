@@ -167,5 +167,12 @@ def index():
                 return render_template("index.html", stewards=sorted(initial_list, key=sort_by_part, reverse=False))
             else: 
                 return render_template("index.html", stewards=sorted(initial_list, key=sort_by_part, reverse=True))
+
+        if data[0] == 'votingweight':
+            if data[1] == 'True':
+                return render_template("index.html", stewards=sorted(initial_list, key=lambda k: float(k['votingweight']), reverse=False))
+            else: 
+                return render_template("index.html", stewards=sorted(initial_list, key=lambda k: float(k['votingweight']), reverse=True))
+        
     else:
         return render_template("index.html", stewards=initial_list)
