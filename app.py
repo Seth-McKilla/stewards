@@ -2,15 +2,12 @@ import json
 import math
 import requests
 import pandas as pd
-from flask import Flask
+from flask import Flask, request
 from flask.templating import render_template
 
 app = Flask(__name__, static_folder="assets")
 
-
-@app.route("/", methods=["GET"])
-def main():
-
+def preprocess():
     stewards_data = pd.read_csv("stewards.csv")
     voting_power = []
     json_list = []
@@ -133,4 +130,26 @@ def main():
         res = json.loads(df3["json"][i])
         json_list.append(res)
 
-    return render_template("index.html", stewards=json_list)
+    return json_list
+
+initial_list = preprocess()
+
+
+def sort_by_key(list):
+    return list['name']
+
+
+@app.route("/", methods=["GET", "POST"])
+def index():
+
+    if request.method == "POST":
+        data = [x for x in request.form.values()]
+
+        #return str(data)
+        if data[0] == 'name':
+            if data[1] == 'True':
+                return render_template("index.html", stewards=sorted(initial_list, key=sort_by_key, reverse=True))
+            else: 
+                return render_template("index.html", stewards=sorted(initial_list, key=sort_by_key, reverse=False))
+    else:
+        return render_template("index.html", stewards=initial_list)
