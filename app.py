@@ -83,7 +83,7 @@ def preprocess():
             response = requests.request("POST", url1, headers=headers, data=payload)
             res = json.loads(response.text)
             if res["data"]["account"] == None:
-                voting_power.append("NA")
+                voting_power.append(0)
             else:
                 power = "{:.2f}".format(
                     float(res["data"]["account"]["percentageOfTotalVotingPower"])
@@ -111,10 +111,10 @@ def preprocess():
         r = requests.get(url)
 
         if str(result["votingweight"][i]) == "nan":
-            voting_participation.append("NA")
+            voting_participation.append(0)
 
         elif list(r.json().keys())[0] == "message":
-            voting_participation.append("NA")
+            voting_participation.append(0)
 
         else:
             url = "https://api.boardroom.info/v1/voters/" + str(result["address"][i])
@@ -141,6 +141,9 @@ def sort_by_key(list):
 def sort_by_date(list):
     return list['steward_since']
 
+def sort_by_part(list):
+    return list['voteparticipation']
+
 @app.route("/", methods=["GET", "POST"])
 def index():
 
@@ -149,14 +152,20 @@ def index():
 
         if data[0] == 'name':
             if data[1] == 'True':
-                return render_template("index.html", stewards=sorted(initial_list, key=sort_by_key, reverse=True))
-            else: 
                 return render_template("index.html", stewards=sorted(initial_list, key=sort_by_key, reverse=False))
+            else: 
+                return render_template("index.html", stewards=sorted(initial_list, key=sort_by_key, reverse=True))
 
         if data[0] == 'date':
             if data[1] == 'True':
-                return render_template("index.html", stewards=sorted(initial_list, key=sort_by_date, reverse=True))
-            else: 
                 return render_template("index.html", stewards=sorted(initial_list, key=sort_by_date, reverse=False))
+            else: 
+                return render_template("index.html", stewards=sorted(initial_list, key=sort_by_date, reverse=True))
+        
+        if data[0] == 'voteparticipation':
+            if data[1] == 'True':
+                return render_template("index.html", stewards=sorted(initial_list, key=sort_by_part, reverse=False))
+            else: 
+                return render_template("index.html", stewards=sorted(initial_list, key=sort_by_part, reverse=True))
     else:
         return render_template("index.html", stewards=initial_list)
