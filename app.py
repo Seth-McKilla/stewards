@@ -134,16 +134,6 @@ def preprocess():
 
 initial_list = preprocess()
 
-
-def sort_by_key(list):
-    return list['name']
-
-def sort_by_date(list):
-    return list['steward_since']
-
-def sort_by_part(list):
-    return list['voteparticipation']
-
 @app.route("/", methods=["GET", "POST"])
 def index():
 
@@ -152,27 +142,34 @@ def index():
 
         if data[0] == 'name':
             if data[1] == 'True':
-                return render_template("index.html", stewards=sorted(initial_list, key=sort_by_key, reverse=False))
+                return render_template("index.html", stewards=sorted(initial_list, key=lambda k: k['name'], reverse=False))
             else: 
-                return render_template("index.html", stewards=sorted(initial_list, key=sort_by_key, reverse=True))
+                return render_template("index.html", stewards=sorted(initial_list, key=lambda k: k['name'], reverse=True))
 
         if data[0] == 'date':
             if data[1] == 'True':
-                return render_template("index.html", stewards=sorted(initial_list, key=sort_by_date, reverse=False))
+                return render_template("index.html", stewards=sorted(initial_list, key=lambda k: k['steward_since'], reverse=False))
             else: 
-                return render_template("index.html", stewards=sorted(initial_list, key=sort_by_date, reverse=True))
+                return render_template("index.html", stewards=sorted(initial_list, key=lambda k: k['steward_since'], reverse=True))
         
         if data[0] == 'voteparticipation':
             if data[1] == 'True':
-                return render_template("index.html", stewards=sorted(initial_list, key=sort_by_part, reverse=False))
+                return render_template("index.html", stewards=sorted(initial_list, key=lambda k: k['voteparticipation'], reverse=False))
             else: 
-                return render_template("index.html", stewards=sorted(initial_list, key=sort_by_part, reverse=True))
+                return render_template("index.html", stewards=sorted(initial_list,  key=lambda k: k['voteparticipation'], reverse=True))
 
         if data[0] == 'votingweight':
             if data[1] == 'True':
                 return render_template("index.html", stewards=sorted(initial_list, key=lambda k: float(k['votingweight']), reverse=False))
             else: 
                 return render_template("index.html", stewards=sorted(initial_list, key=lambda k: float(k['votingweight']), reverse=True))
+
+        if data[0] == 'statement_post_id':
+            if data[1] == 'True':
+                return render_template("index.html", stewards=sorted(initial_list, key=lambda k: k['statement_post_id'], reverse=False))
+            else: 
+                return render_template("index.html", stewards=sorted(initial_list, key=lambda k: k['statement_post_id'], reverse=True))
+        
         
     else:
         return render_template("index.html", stewards=initial_list)
